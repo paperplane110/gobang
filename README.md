@@ -1,7 +1,8 @@
-# gobang
+# gobang--五子棋
+可以在终端上和朋友一起玩的五子棋！
 A little Gobang game running in terminal where you can play it with your friend!
 ## How to play
-Open your terminal and `cd` to a dir you feel convenient
+Open your terminal and `cd` to a dir which you feel convenient
 ```bash
 git clone https://github.com/paperplane110/gobang.git
 python3 gobang.py
