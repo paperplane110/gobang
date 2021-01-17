@@ -4,7 +4,7 @@ version:
 Author: TianyuYuan
 Date: 2021-01-17 00:16:16
 LastEditors: TianyuYuan
-LastEditTime: 2021-01-17 22:29:31
+LastEditTime: 2021-01-17 23:02:49
 '''
 from chess_map import Map
 from chesses import Chesses
@@ -41,19 +41,23 @@ def game_play(chess_map:Map,chess:Chesses) -> int:
             chess_piece = chess.pick_chess(player)
             print("请玩家{}「{}」输入棋子坐标，横纵坐标请用逗号隔开：".format(player,chess_piece))
             position = input()
-            if position == "q":
-                quit_game()
-            if "," not in position:
-                print("请用逗号隔开横纵坐标；")
+            try:
+                if position == "q":
+                    quit_game()
+                if "," not in position:
+                    print("请用逗号隔开横纵坐标；")
+                    continue
+                position = format_position(position)
+                if chess.check_out_of_map(position):
+                    print("棋子位置超出棋盘范围，请重新落子；")
+                    continue
+                if chess.check_same_position(position):
+                    break
+                else:
+                    print("该位置已有棋子，请重新输入坐标；")
+            except ValueError:
+                print("错误的输入！")
                 continue
-            position = format_position(position)
-            if chess.check_out_of_map(position):
-                print("棋子位置超出棋盘范围，请重新落子；")
-                continue
-            if chess.check_same_position(position):
-                break
-            else:
-                print("该位置已有棋子，请重新输入坐标；")
         chess.refresh_matrix(player,position)
         # show chess
         chess_map.show_map(chess.matrix,chess.p1,chess.p2)
@@ -71,16 +75,20 @@ def init_chess() -> (Map,Chesses):
     while True:
         print("请输入棋盘大小「默认边长15格」")
         length = input()
-        if length == "q":
-            quit_game()
-        elif length == "":
-            length = 15
-            break
-        elif (int(length) <= 20) or (int(length)>=5):
-            length = int(length)
-            break
-        else:
-            print("棋盘边界超出范围[5,20]，请重新输入~")
+        try:
+            if length == "q":
+                quit_game()
+            elif length == "":
+                length = 15
+                break
+            elif (int(length) <= 20) and (int(length)>=5):
+                length = int(length)
+                break
+            else:
+                print("棋盘边界超出范围[5,20]，请重新输入~")
+        except ValueError:
+            print("请输入十进制整数作为棋盘边长。")
+            continue
     while True:
         # default chess
         print("想使用默认棋子吗？(y/n)")
