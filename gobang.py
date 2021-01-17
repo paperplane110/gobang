@@ -4,7 +4,7 @@ version:
 Author: TianyuYuan
 Date: 2021-01-17 00:16:16
 LastEditors: TianyuYuan
-LastEditTime: 2021-01-17 18:31:56
+LastEditTime: 2021-01-17 22:29:31
 '''
 from chess_map import Map
 from chesses import Chesses
@@ -76,11 +76,11 @@ def init_chess() -> (Map,Chesses):
         elif length == "":
             length = 15
             break
-        elif int(length) <= 20:
+        elif (int(length) <= 20) or (int(length)>=5):
             length = int(length)
             break
         else:
-            print("棋盘有些太大了，只能生成边长小于20的棋盘哦～，请重新输入")
+            print("棋盘边界超出范围[5,20]，请重新输入~")
     while True:
         # default chess
         print("想使用默认棋子吗？(y/n)")
