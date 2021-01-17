@@ -76,7 +76,7 @@ def init_chess() -> (Map,Chesses):
         elif length == "":
             length = 15
             break
-        elif int(length) <= 25:
+        elif int(length) <= 20:
             length = int(length)
             break
         else:
